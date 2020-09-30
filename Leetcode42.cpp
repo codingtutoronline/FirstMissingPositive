@@ -1,4 +1,4 @@
-Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+/*Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
 
 
 The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped. Thanks Marcos for contributing this image!
@@ -69,5 +69,33 @@ public:
         }
         
         return total_water;
+    }
+};
+*/
+My short c++ solution, O(1) space, and O(n) time
+
+
+Put each number in its right place.
+
+For example:
+
+When we find 5, then swap it with A[4].
+
+At last, the first place where its number is not right, return the place + 1.
+
+class Solution
+{
+public:
+    int firstMissingPositive(int A[], int n)
+    {
+        for(int i = 0; i < n; ++ i)
+            while(A[i] > 0 && A[i] <= n && A[A[i] - 1] != A[i])
+                swap(A[i], A[A[i] - 1]);
+        
+        for(int i = 0; i < n; ++ i)
+            if(A[i] != i + 1)
+                return i + 1;
+        
+        return n + 1;
     }
 };
